@@ -68,7 +68,7 @@ namespace GameDevTV.Inventories
         // PRIVATE
         private void Awake()
         {
-           // equipmentUpdated();
+            equipmentUpdated();
         }
         object ISaveable.CaptureState()
         {
