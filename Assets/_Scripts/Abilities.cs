@@ -5,13 +5,17 @@ using UnityEngine.UI;
 
 public class Abilities : MonoBehaviour
 {
+    [SerializeField] private Animator m_Animator;
+
     [Header("Ability 1")]
+    public Ability ability1;
     public Image abilityImage1;
     public Text abilityText1;
     public KeyCode ability1Key;
     public float ability1Cooldown = 5;
 
     [Header("Ability 2")]
+    public Ability ability2;
     public Image abilityImage2;
     public Text abilityText2;
     public KeyCode ability2Key;
@@ -31,6 +35,9 @@ public class Abilities : MonoBehaviour
     private float currentAbility2Cooldown;
     private float currentAbility3Cooldown;
 
+   
+   
+    
 
     // Start is called before the first frame update
     void Start()
@@ -61,8 +68,14 @@ public class Abilities : MonoBehaviour
     {
         if (Input.GetKeyDown(ability1Key) && !isAbility1Cooldown)
         {
+            ability1.Activate(gameObject);
             isAbility1Cooldown = true;
             currentAbility1Cooldown = ability1Cooldown;
+            if (ability1 != null)
+            {
+                m_Animator.SetTrigger("Skill1");
+                ability1.Activate(gameObject); 
+            }
         }
     }
 
@@ -70,6 +83,7 @@ public class Abilities : MonoBehaviour
     {
         if (Input.GetKeyDown(ability2Key) && !isAbility2Cooldown)
         {
+            ability2.Activate(gameObject);
             isAbility2Cooldown = true;
             currentAbility2Cooldown = ability2Cooldown;
         }

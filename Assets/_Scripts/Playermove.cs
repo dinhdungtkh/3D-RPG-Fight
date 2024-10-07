@@ -9,13 +9,15 @@ public class Playermove : MonoBehaviour
     public NavMeshAgent agent;
     public float rotateSpeedMovement = 0.05f;
     private float rotateVelocity;
-
+    private Transform PlayerTransform;
+    public Transform currentTransform;
     public Animator anim;
     float motionSmoothTime = 0.1f;
 
     void Start()
     {
         agent = gameObject.GetComponent<NavMeshAgent>();
+        PlayerTransform = gameObject.GetComponent<Transform>();
     }
 
 
@@ -23,6 +25,7 @@ public class Playermove : MonoBehaviour
     {
         Animation();
         Move();
+        currentTransform = PlayerTransform;
     }
 
     public void Animation()
