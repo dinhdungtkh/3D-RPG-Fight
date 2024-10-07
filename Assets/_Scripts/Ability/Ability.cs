@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class Ability : ScriptableObject
 {
-     public Image abilityImage;
-     public float abilityCooldown;
+    public Sprite abilityImage;
+    public float abilityCooldown;
     public Text abilityTextCoolDown;
     public KeyCode activeKey;
     public string CurrentAnimname;

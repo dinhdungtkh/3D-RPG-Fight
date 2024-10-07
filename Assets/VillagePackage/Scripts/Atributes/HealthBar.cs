@@ -6,7 +6,7 @@ namespace Game.Attributes
 {
     public class HealthBar : MonoBehaviour
     {
-        [SerializeField] Health health = null;
+        [SerializeField] CharacterHealth health = null;
         [SerializeField] RectTransform foreground = null;
         [SerializeField] Canvas rootCanvas = null;
         // Update is called once per frame

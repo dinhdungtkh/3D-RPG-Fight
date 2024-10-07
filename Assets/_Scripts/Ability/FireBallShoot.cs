@@ -34,7 +34,7 @@ public class FireBallShoot : Ability
         yield return new WaitForSeconds(1.8f);
         if (!isFinishedAction)
         {
-            Instantiate(Hitparticle, hitpoint);
+            Instantiate(projectile, hitpoint);
 
         }
         else

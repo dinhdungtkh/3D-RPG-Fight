@@ -24,7 +24,7 @@ namespace Game.Combat
         Equipment equipment;
         float timeSinceLastAttack = Mathf.Infinity;
         bool isAttacking = false;
-        WeaponConfig currentWeapon= null;
+        WeaponConfig currentWeapon = null;
         int numberOfHit = 0;
 
         private void Awake()
@@ -39,7 +39,7 @@ namespace Game.Combat
         private void UpdateWeapon()
         {
             var weapon = equipment.GetItemInSlot(EquipLocation.Weapon) as WeaponConfig;
-            if (weapon == null) 
+            if (weapon == null)
             {
                 EquipWeapon(defaultWeapon);
             }
@@ -51,7 +51,7 @@ namespace Game.Combat
 
         private void Start()
         {
-            if(currentWeapon == null)
+            if (currentWeapon == null)
             {
                 EquipWeapon(defaultWeapon);
                 // currentWeapon = defaultWeapon;
@@ -67,9 +67,9 @@ namespace Game.Combat
 
             if (!isInRange())
             {
-                if(isAttacking) 
+                if (isAttacking)
                 {
-                    return; 
+                    return;
                 }
                 GetComponent<Mover>().MoveTo(target.transform.position, 1f);
             }
@@ -85,7 +85,7 @@ namespace Game.Combat
             currentWeapon = weapon;
             numberOfHit = 0;
             Animator animator = GetComponent<Animator>();
-            currentWeapon.Spawn(rightHandTransform,leftHandTransform, animator);
+            currentWeapon.Spawn(rightHandTransform, leftHandTransform, animator);
 
             if (defaultWeaponInModel != null)
             {
@@ -133,9 +133,9 @@ namespace Game.Combat
             }
             else
             {
-                damage = currentWeapon.GetDamage()+10;
+                damage = currentWeapon.GetDamage() + 10;
             }
-           
+
             if (currentWeapon.HasProjectile())
             {
                 currentWeapon.LaunchProjectile(rightHandTransform, leftHandTransform, target, gameObject, damage);
