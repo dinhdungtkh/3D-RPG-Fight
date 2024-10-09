@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class AuraHit : MonoBehaviour
 {
+    [SerializeField] private AbilityConfig config;
     [SerializeField] private GameObject hitEffectPrefab;
-    [SerializeField] private float damage = 20f;
+   // [SerializeField] private float damage = 20f;
     public virtual void OnInit()
     {
-        Destroy(gameObject, 3f);
+        Destroy(gameObject, 1f);
+    }
+
+    private void Start()
+    {
+        Destroy(gameObject, 1f);
     }
 
 
@@ -16,9 +22,27 @@ public class AuraHit : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
         {
-            CharacterHealth characterHealth = other.GetComponent<CharacterHealth>();
-            characterHealth.ReceiveDamage(damage);
+            //Debug.Log("Trigger");
+            //CharacterHealth characterHealth = other.GetComponent<CharacterHealth>();
+            //characterHealth.ReceiveDamage(damage);
+            //ApplyDamage(damage);
+        }
+    }
 
+
+    public void ApplyDamage(float damage)
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 5f);
+        foreach (var hit in hitColliders)
+        {
+            if (hit.CompareTag("Enemy"))
+            {
+                CharacterHealth target = hit.GetComponent<CharacterHealth>();
+                if (target != null)
+                {
+                    target.ReceiveDamage(damage); 
+                }
+            }
         }
     }
 

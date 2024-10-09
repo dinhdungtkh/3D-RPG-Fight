@@ -17,6 +17,7 @@ MonoBehaviour:
   abilityTextCoolDown: {fileID: 0}
   activeKey: 119
   CurrentAnimname: 
-  fireballFXPrefab: {fileID: 7081797485375374487, guid: 23813e654cf4d374e8f8803580f0d503, type: 3}
-  damage: 20
-  projectileSpeed: 15
+  maxSkillDistance: 10
+  useIndicator: 1
+  fireballFXPrefab: {fileID: 237776701889672369, guid: 862b665baa8664f4093d642489e70cd1, type: 3}
+  damageAmount: 60

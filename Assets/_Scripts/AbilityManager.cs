@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
@@ -13,12 +13,11 @@ public class AbilityManager : MonoBehaviour
     public List<Text> abilityTexts = new List<Text>();
     public List<KeyCode> abilityKeys = new List<KeyCode>();
     public List<float> abilityCooldowns = new List<float>();
+    public List<Canvas> abilityCanvases = new List<Canvas>();
 
     private List<bool> isAbilityCooldown = new List<bool>();
     private List<float> currentCooldowns = new List<float>();
-
-    
-
+  
     void Start()
     {
         for (int i = 0; i < abilities.Count; i++)
@@ -27,6 +26,7 @@ public class AbilityManager : MonoBehaviour
             abilityTexts[i].text = "";
             isAbilityCooldown.Add(false);
             currentCooldowns.Add(0f);
+            abilityCanvases[i].enabled = false;
             SetupAbilityInput(i);
         }
     }
@@ -37,10 +37,32 @@ public class AbilityManager : MonoBehaviour
             .Where(_ => Input.GetKeyDown(abilityKeys[index]) && !isAbilityCooldown[index])
             .Subscribe(_ =>
             {
-                ActivateSkillInGame(index);
+                if (GetUseIndicator(index))
+                {
+                    IndicatorController indicatorController = GetComponent<IndicatorController>();
+                    if (indicatorController != null)
+                    {
+                        indicatorController.RangedCanvas(); 
+                    }
+                }
+                else
+                {
+                    ActivateSkillInGame(index);
+                }
                 HandleCooldownUI(index);
             }).AddTo(this);
     }
+
+    public bool GetUseIndicator(int index)
+    {
+        if (index >= 0 && index < abilities.Count)
+        {
+            return abilities[index].useIndicator; 
+        }
+        return false; 
+    }
+
+
 
     private void ActivateSkillInGame(int index)
     {
@@ -67,4 +89,14 @@ public class AbilityManager : MonoBehaviour
         abilityImages[index].fillAmount = 0;
         abilityTexts[index].text = "";
     }
+    public bool GetIsAbilityCooldown(int index)
+    {
+        if (index >= 0 && index < isAbilityCooldown.Count)
+        {
+            return isAbilityCooldown[index];
+        }
+        return true;
+    } 
+
+
 }
