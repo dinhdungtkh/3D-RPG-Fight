@@ -9,7 +9,7 @@ namespace Game.Attributes
         [SerializeField] CharacterHealth health = null;
         [SerializeField] RectTransform foreground = null;
         [SerializeField] Canvas rootCanvas = null;
-        // Update is called once per frame
+   
         void Update()
         {
             if (Mathf.Approximately(health.GetPercentage(), 0)

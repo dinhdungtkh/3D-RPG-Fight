@@ -14,7 +14,7 @@ namespace Game.Combat
         [SerializeField] float lifeAfterImpact = 2;
         [SerializeField] UnityEvent onHit;
 
-        Health target = null;
+        CharacterHealth target = null;
         GameObject instigator = null;
         float damage = 0;
 
@@ -31,7 +31,7 @@ namespace Game.Combat
             transform.Translate(Vector3.forward * speed * Time.deltaTime);
         }
 
-        public void SetTarget(Health target, GameObject instigator, float damage)
+        public void SetTarget(CharacterHealth target, GameObject instigator, float damage)
         {
             this.target = target;
             this.damage = damage;

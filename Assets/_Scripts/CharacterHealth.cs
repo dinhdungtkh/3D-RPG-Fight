@@ -4,14 +4,15 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class CharacterHealth : MonoBehaviour, ISaveable
+public class CharacterHealth : MonoBehaviour
 {
     [SerializeField] float health = 100f;
     [SerializeField] float healthRegenPercentage = 5f;
     [SerializeField] float selfRegenTime = 3f;
     [SerializeField] TakeDamageEvent takeDamage;
     [SerializeField] UnityEvent onDie;
-
+    [SerializeField]
+    private float maxHealth = 100f;
     [System.Serializable]
     public class TakeDamageEvent : UnityEvent<float>
     {
@@ -22,12 +23,13 @@ public class CharacterHealth : MonoBehaviour, ISaveable
 
     private bool isDying = false;
     private bool isRestored = false;
-    private float maxHealth;
+    
     float timeSinceSelfRegen = 0;
 
     private void Awake()
     {
         health = maxHealth;
+        
     }
 
     private void UpdateHealth()
@@ -64,6 +66,21 @@ public class CharacterHealth : MonoBehaviour, ISaveable
 
     public void TakeDamage(GameObject instigator, float damage)
     {
+       health = Mathf.Max(health - damage, 0);
+        if (health == 0)
+        {
+            onDie.Invoke();
+            Die();
+        }
+        else
+        {
+            takeDamage.Invoke(damage);
+        }
+    }
+
+
+    public void ReceiveDamage(float damage)
+    {
         health = Mathf.Max(health - damage, 0);
         if (health == 0)
         {
@@ -75,6 +92,8 @@ public class CharacterHealth : MonoBehaviour, ISaveable
             takeDamage.Invoke(damage);
         }
     }
+
+
 
     public float GetHealthPoints()
     {
@@ -97,6 +116,8 @@ public class CharacterHealth : MonoBehaviour, ISaveable
         isDying = true;
         GetComponent<ActionScheduler>().CancelAllActions();
         GetComponent<Animator>().SetTrigger("die");
+        gameObject.SetActive(false);
+        
     }
     public void SelfRegen()
     {
@@ -115,28 +136,17 @@ public class CharacterHealth : MonoBehaviour, ISaveable
         maxHealth = health;
     }
 
-    public object CaptureState()
-    {
-        return health;
-    }
-
-    public void RestoreState(object state)
-    {
-        isRestored = true;
-        health = (float)state;
-
-        if (health > 0)
-        {
-            isDying = false;
-            SetCharacterActive(!isDying);
-            Animator anime = GetComponent<Animator>();
-            anime.Rebind();
-            anime.Update(0f);
-        }
-    }
-
     public void Heal(float healthToRestore)
     {
         health = Mathf.Min(health + healthToRestore, GetMaxHealhPoints());
+    }
+
+
+    private void OnReset()
+    {
+        gameObject.SetActive(true);
+        health = maxHealth;
+        timeSinceSelfRegen = 0;
+
     }
 }

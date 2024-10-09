@@ -20,7 +20,7 @@ namespace Game.Combat
         [SerializeField] WeaponConfig defaultWeapon = null;
         [SerializeField] GameObject defaultWeaponInModel = null;
 
-        Health target;
+        CharacterHealth target;
         Equipment equipment;
         float timeSinceLastAttack = Mathf.Infinity;
         bool isAttacking = false;
@@ -100,7 +100,7 @@ namespace Game.Combat
             }
         }
 
-        public Health GetTarget()
+        public CharacterHealth GetTarget()
         {
             return target;
         }
@@ -179,7 +179,7 @@ namespace Game.Combat
         public void Attack(GameObject combatTarget)
         {
             GetComponent<ActionScheduler>().StartAction(this);
-            target = combatTarget.GetComponent<Health>();
+            target = combatTarget.GetComponent<CharacterHealth>();
         }
         public void Cancel()
         {

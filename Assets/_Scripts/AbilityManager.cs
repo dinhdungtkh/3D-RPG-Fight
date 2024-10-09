@@ -17,6 +17,8 @@ public class AbilityManager : MonoBehaviour
     private List<bool> isAbilityCooldown = new List<bool>();
     private List<float> currentCooldowns = new List<float>();
 
+    
+
     void Start()
     {
         for (int i = 0; i < abilities.Count; i++)

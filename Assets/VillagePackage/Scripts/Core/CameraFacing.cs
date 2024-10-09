@@ -9,7 +9,10 @@ namespace Game.Core
         // Update is called once per frame
         void LateUpdate()
         {
-            transform.forward= Camera.main.transform.forward;
+            transform.LookAt(transform.position + 
+                Camera.main.transform.rotation * Vector3.forward,
+                Camera.main.transform.rotation * Vector3.up);
+           // transform.forward= Camera.main.transform.forward;
         }
     }
 }

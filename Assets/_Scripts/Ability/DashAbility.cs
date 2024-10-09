@@ -1,46 +1,30 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu]
 public class DashAbility : Ability
 {
     public float dashDistance;
-    public bool isFinishedAction = false;
-    private Transform hitpoint;
-    [SerializeField] ParticleSystem Hitparticle;
+    public GameObject damageAreaPrefab;
+    public float damageAmount = 10f;
 
     public override void Activate(GameObject parent)
     {
-        //Debug.Log("Actived");
         Playermove playermove = parent.GetComponent<Playermove>();
         if (playermove != null)
         {
-            hitpoint = playermove.currentTransform;
-            //Debug.Log(playerTransform);
+            Transform hitpoint = playermove.currentTransform;
             Vector3 dashDirection = hitpoint.forward;
             Vector3 newPosition = hitpoint.position + dashDirection * dashDistance;
             hitpoint.position = newPosition;
-            DealDamage();
-        }
-        else
-        {
-            Debug.LogWarning("Playermove component not found on the parent GameObject.");
+
+            DashDamageArea damageArea = CreateDamageArea(newPosition);
+            damageArea.ApplyDamage(damageAmount);
         }
     }
 
-    public IEnumerator DealDamage()
+    private DashDamageArea CreateDamageArea(Vector3 position)
     {
-        yield return new WaitForSeconds(1.8f);
-        if (!isFinishedAction)
-        {
-            Instantiate(Hitparticle,hitpoint);
-
-        }
-        else
-        {
-
-        }
+        GameObject area = Instantiate(damageAreaPrefab, position, Quaternion.identity);
+        return area.GetComponent<DashDamageArea>();
     }
-
 }

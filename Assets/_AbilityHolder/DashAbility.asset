@@ -17,6 +17,6 @@ MonoBehaviour:
   abilityTextCoolDown: {fileID: 0}
   activeKey: 113
   CurrentAnimname: 
-  dashDistance: 0.05
-  isFinishedAction: 0
-  Hitparticle: {fileID: 0}
+  dashDistance: 2
+  damageAreaPrefab: {fileID: 8919003035591351525, guid: 46f5c1ddb39f72248aa6e9e29262f01b, type: 3}
+  damageAmount: 25
