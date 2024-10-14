@@ -3213,6 +3213,18 @@ PrefabInstance:
       propertyPath: abilityCanvases.Array.data[2]
       value: 
       objectReference: {fileID: 1225543241}
+    - target: {fileID: 284945483641941308, guid: 5333249f1ba2946488d419d45f476ac6, type: 3}
+      propertyPath: abilityCooldowns.Array.data[0]
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 284945483641941308, guid: 5333249f1ba2946488d419d45f476ac6, type: 3}
+      propertyPath: abilityCooldowns.Array.data[1]
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 284945483641941308, guid: 5333249f1ba2946488d419d45f476ac6, type: 3}
+      propertyPath: abilityCooldowns.Array.data[2]
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1558200927858020098, guid: 5333249f1ba2946488d419d45f476ac6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 55

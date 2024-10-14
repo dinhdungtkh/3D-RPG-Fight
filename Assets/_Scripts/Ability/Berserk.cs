@@ -18,7 +18,7 @@ public class Berserk : Ability
 
             autoAttack.AttackDamage += config.additionalDamage;
             autoAttack.attackSpeed += config.additionalAttackSpeed;
-
+       
             Observable.Timer(TimeSpan.FromSeconds(config.skillActiveTime))
                 .Subscribe(_ =>
                 {
@@ -26,6 +26,7 @@ public class Berserk : Ability
                     autoAttack.attackSpeed -= config.additionalAttackSpeed;
                 })
                 .AddTo(parent);
+            playerHealth.Heal(autoAttack.AttackDamage/10);
         }
     }
 }
